@@ -1,4 +1,4 @@
-# cst-react-scripts
+# dpdk-react-scripts
 
 Custom changes to `react-scripts`. This is unlikely to work for you and you'd probably want to use `react-scripts` instead.
 
