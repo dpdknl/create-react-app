@@ -78,7 +78,7 @@ const resolveModule = (resolveFn, filePath) => {
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appBuild: resolveApp('public/dist'),
+  appBuild: resolveApp('public'),
   // appBuildRoot: resolveApp('public'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('frontend/template/index.html'),
@@ -92,7 +92,7 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   configFile: resolveApp(envConfigFile || 'react.config.js'),
-  servedPath: '/dist/',
+  servedPath: '/',
   // servedPath: getServedPath(resolveApp('package.json')),
 };
 
@@ -103,7 +103,7 @@ const resolveOwn = relativePath => path.resolve(__dirname, '..', relativePath);
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appBuild: resolveApp('public/dist'),
+  appBuild: resolveApp('public'),
   appPublic: resolveApp('public'),
   // appBuildRoot: resolveApp('public'),
   appHtml: resolveApp('frontend/template/index.html'),
@@ -117,7 +117,7 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   configFile: resolveApp(envConfigFile || 'react.config.js'),
-  servedPath: '/dist/',
+  servedPath: '/',
   // servedPath: getServedPath(resolveApp('package.json')),
   // These properties only exist before ejecting:
   ownPath: resolveOwn('.'),
