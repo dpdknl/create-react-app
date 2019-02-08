@@ -86,7 +86,7 @@ const config = configFactory('development', { watch: true });
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => callUserConfig(config, { production: false }))
   .then(() => {
-    console.log('Starting Webpack watcher . . .');
+    console.log('Starting Webpack watcher...');
     webpack(config).watch({}, (err, stats) => {
       if (err) {
         console.error(err);

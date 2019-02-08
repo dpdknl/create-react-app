@@ -8,10 +8,10 @@ exports.pitch = function(remainingRequest) {
 		import React from 'react';
 
 		function load() {
-            return import(${stringifyRequest(this, '!!' + remainingRequest)})
+			return import(${stringifyRequest(this, '!!' + remainingRequest)});
 		}
 
-		const Comp = React.lazy(load)
+		const Comp = React.lazy(load);
 		Comp.prefetch = load;
 
 		export default Comp;
