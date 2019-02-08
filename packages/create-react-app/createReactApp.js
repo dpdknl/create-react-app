@@ -135,20 +135,32 @@ if (program.info) {
         npmGlobalPackages: ['create-react-app'],
       },
       {
-        clipboard: true,
+        clipboard: false,
         duplicates: true,
         showNotFound: true,
       }
     )
-    .then(console.log)
-    .then(() => console.log(chalk.green('Copied To Clipboard!\n')));
+    .then(console.log);
 }
 
-if (typeof projectName === 'undefined') {
-  console.error('Please specify the project directory:');
-  console.log(
-    `  ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`
-  );
+const hasMultipleProjectNameArgs =
+  process.argv[3] && !process.argv[3].startsWith('-');
+if (typeof projectName === 'undefined' || hasMultipleProjectNameArgs) {
+  console.log();
+  if (hasMultipleProjectNameArgs) {
+    console.error(
+      `You have provided more than one argument for ${chalk.green(
+        '<project-directory>'
+      )}.`
+    );
+    console.log();
+    console.log('Please specify only one project directory, without spaces.');
+  } else {
+    console.error('Please specify the project directory:');
+    console.log(
+      `  ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`
+    );
+  }
   console.log();
   console.log('For example:');
   console.log(`  ${chalk.cyan(program.name())} ${chalk.green('my-react-app')}`);
@@ -244,7 +256,7 @@ function createApp(
           chalk.yellow(
             `You are using npm ${
               npmInfo.npmVersion
-            } so the project will be boostrapped with an old unsupported version of tools.\n\n` +
+            } so the project will be bootstrapped with an old unsupported version of tools.\n\n` +
               `Please update to npm 3 or higher for a better, fully supported experience.\n`
           )
         );

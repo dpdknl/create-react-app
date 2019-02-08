@@ -5,7 +5,7 @@ title: Running Tests
 
 > Note: this feature is available with `react-scripts@0.3.0` and higher.<br>
 
-> [Read the migration guide to learn how to enable it in older projects!](https://github.com/facebook/create-react-app/blob/master/CHANGELOG.md#migrating-from-023-to-030)
+> [Read the migration guide to learn how to enable it in older projects!](https://github.com/facebook/create-react-app/blob/master/CHANGELOG-0.x.md#migrating-from-023-to-030)
 
 Create React App uses [Jest](https://facebook.github.io/jest/) as its test runner. To prepare for this integration, we did a [major revamp](https://facebook.github.io/jest/blog/2016/09/01/jest-15.html) of Jest so if you heard bad things about it years ago, give it another try.
 
@@ -29,11 +29,13 @@ We recommend to put the test files (or `__tests__` folders) next to the code the
 
 ## Command Line Interface
 
-When you run `npm test`, Jest will launch in the watch mode. Every time you save a file, it will re-run the tests, just like `npm start` recompiles the code.
+When you run `npm test`, Jest will launch in watch mode<sup>\*</sup>. Every time you save a file, it will re-run the tests, just like `npm start` recompiles the code.
 
 The watcher includes an interactive command-line interface with the ability to run all tests, or focus on a search pattern. It is designed this way so that you can keep it open and enjoy fast re-runs. You can learn the commands from the “Watch Usage” note that the watcher prints after every run:
 
-![Jest watch mode](http://facebook.github.io/jest/img/blog/15-watch.gif)
+![Jest watch mode](https://jestjs.io/img/blog/15-watch.gif)
+
+> \*Although we recommend running your tests in watch mode during development, you can disable this behavior by passing in the `--no-watch` flag. In most CI environments, this is handled for you (see [On CI servers](#on-ci-servers)).
 
 ## Version Control Integration
 
@@ -239,6 +241,7 @@ For example:
 const localStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),
+  removeItem: jest.fn(),
   clear: jest.fn(),
 };
 global.localStorage = localStorageMock;
@@ -263,7 +266,7 @@ Similarly, `fit()` lets you focus on a specific test without running any other t
 Jest has an integrated coverage reporter that works well with ES6 and requires no configuration.<br>
 Run `npm test -- --coverage` (note extra `--` in the middle) to include a coverage report like this:
 
-![coverage report](http://i.imgur.com/5bFhnTS.png)
+![coverage report](https://i.imgur.com/5bFhnTS.png)
 
 Note that tests run much slower with coverage so it is recommended to run it separately from your normal workflow.
 
@@ -371,9 +374,9 @@ CI=true npm test
 CI=true npm run build
 ```
 
-The test command will force Jest to run tests once instead of launching the watcher.
+The test command will force Jest to run in CI-mode, and tests will only run once instead of launching the watcher.
 
-> If you find yourself doing this often in development, please [file an issue](https://github.com/facebook/create-react-app/issues/new) to tell us about your use case because we want to make watcher the best experience and are open to changing how it works to accommodate more workflows.
+For non-CI environments, you can simply pass the `--no-watch` flag to disable test-watching.
 
 The build command will check for linter warnings and fail if any are found.
 
