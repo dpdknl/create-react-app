@@ -1,6 +1,6 @@
 {
   "name": "dpdk-react-scripts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Custom configuration and scripts for Create React App.",
   "repository": "dpdknl/create-react-app",
   "license": "MIT",
