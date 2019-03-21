@@ -610,11 +610,11 @@ module.exports = function(webpackEnv, opts = {}) {
       new ManifestPlugin({
         fileName: 'rev-manifest.json',
         publicPath: publicPath,
-        map: file => {
+        // map: file => {
           // Remove hash in manifest key #fixforcopyplugin
-          file.name = file.name.replace(/(\.[a-f0-9]{5,32})(\..*)$/, '$2');
-          return file;
-        },
+          // file.name = file.name.replace(/(\.[a-f0-9]{5,32})(\..*)$/, '$2');
+          // return file;
+        // },
       }),
       // Moment.js is an extremely popular library that bundles large locale files
       // by default due to how Webpack interprets its code. This is a practical
