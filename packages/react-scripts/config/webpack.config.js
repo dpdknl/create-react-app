@@ -537,7 +537,7 @@ module.exports = function(webpackEnv, opts = {}) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
-      new HtmlWebpackPlugin(
+      !isWatcher && new HtmlWebpackPlugin(
         Object.assign(
           {},
           {
