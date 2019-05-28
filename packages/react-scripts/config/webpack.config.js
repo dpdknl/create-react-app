@@ -16,6 +16,7 @@ const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
+const PolyfillsHtmlPlugin = require('./PolyfillsHtmlPlugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -543,6 +544,7 @@ module.exports = function(webpackEnv, opts = {}) {
           {
             inject: true,
             template: paths.appHtml,
+            excludeChunks: [isEnvDevelopment && 'polyfills'].filter(Boolean),
           },
           isEnvProduction
             ? {
@@ -562,6 +564,7 @@ module.exports = function(webpackEnv, opts = {}) {
             : undefined
         )
       ),
+      isEnvProduction && new PolyfillsHtmlPlugin(HtmlWebpackPlugin),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       isEnvProduction &&
