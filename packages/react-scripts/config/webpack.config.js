@@ -171,12 +171,12 @@ module.exports = function(webpackEnv, opts = {}) {
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: isEnvProduction
-        ? 'static/js/[name].[chunkhash:8].js'
-        : isEnvDevelopment && 'static/js/[name].js',
+        ? 'static/js/[name].[hash:8].js'
+        : isEnvDevelopment && 'static/js/[name].[hash:8].js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
         ? 'static/js/[name].[chunkhash:8].chunk.js'
-        : isEnvDevelopment && 'static/js/[name].chunk.js',
+        : isEnvDevelopment && 'static/js/[name].[chunkhash:4].chunk.js',
       // We inferred the "public path" (such as / or /my-project) from homepage.
       // We use "/" in development.
       publicPath: publicPath,
@@ -538,7 +538,7 @@ module.exports = function(webpackEnv, opts = {}) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
-      new HtmlWebpackPlugin(
+      !isWatcher && !isEnvProduction && new HtmlWebpackPlugin(
         Object.assign(
           {},
           {
@@ -613,11 +613,11 @@ module.exports = function(webpackEnv, opts = {}) {
       new ManifestPlugin({
         fileName: 'rev-manifest.json',
         publicPath: publicPath,
-        map: file => {
+        // map: file => {
           // Remove hash in manifest key #fixforcopyplugin
-          file.name = file.name.replace(/(\.[a-f0-9]{5,32})(\..*)$/, '$2');
-          return file;
-        },
+          // file.name = file.name.replace(/(\.[a-f0-9]{5,32})(\..*)$/, '$2');
+          // return file;
+        // },
       }),
       // Moment.js is an extremely popular library that bundles large locale files
       // by default due to how Webpack interprets its code. This is a practical
