@@ -49,6 +49,8 @@ const shouldAnalyze = process.env.ANALYZE === 'true';
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
+const disableHTMLGen = process.env.GENERATE_HTML === 'false';
+
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
@@ -538,32 +540,33 @@ module.exports = function(webpackEnv, opts = {}) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
-      !isWatcher && !isEnvProduction && new HtmlWebpackPlugin(
-        Object.assign(
-          {},
-          {
-            inject: true,
-            template: paths.appHtml,
-            excludeChunks: [isEnvDevelopment && 'polyfills'].filter(Boolean),
-          },
-          isEnvProduction
-            ? {
-                minify: {
-                  removeComments: true,
-                  collapseWhitespace: true,
-                  removeRedundantAttributes: true,
-                  useShortDoctype: true,
-                  removeEmptyAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  keepClosingSlash: true,
-                  minifyJS: true,
-                  minifyCSS: true,
-                  minifyURLs: true,
-                },
-              }
-            : undefined
-        )
-      ),
+      !disableHTMLGen &&
+        new HtmlWebpackPlugin(
+          Object.assign(
+            {},
+            {
+              inject: true,
+              template: paths.appHtml,
+              excludeChunks: [isEnvDevelopment && 'polyfills'].filter(Boolean),
+            },
+            isEnvProduction
+              ? {
+                  minify: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    removeRedundantAttributes: true,
+                    useShortDoctype: true,
+                    removeEmptyAttributes: true,
+                    removeStyleLinkTypeAttributes: true,
+                    keepClosingSlash: true,
+                    minifyJS: true,
+                    minifyCSS: true,
+                    minifyURLs: true,
+                  },
+                }
+              : undefined
+          )
+        ),
       isEnvProduction && new PolyfillsHtmlPlugin(HtmlWebpackPlugin),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
@@ -614,9 +617,9 @@ module.exports = function(webpackEnv, opts = {}) {
         fileName: 'rev-manifest.json',
         publicPath: publicPath,
         // map: file => {
-          // Remove hash in manifest key #fixforcopyplugin
-          // file.name = file.name.replace(/(\.[a-f0-9]{5,32})(\..*)$/, '$2');
-          // return file;
+        //   // Remove hash in manifest key #fixforcopyplugin
+        //   file.name = file.name.replace(/(\.[a-f0-9]{5,32})(\..*)$/, '$2');
+        //   return file;
         // },
       }),
       // Moment.js is an extremely popular library that bundles large locale files
