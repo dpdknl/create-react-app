@@ -1,12 +1,12 @@
-import 'core-js/es6/set';
-import 'core-js/es6/map';
-import 'core-js/es6/symbol';
-import 'core-js/fn/object/assign';
-import 'core-js/fn/object/entries';
-import 'core-js/fn/object/values';
-import 'core-js/fn/array/from';
-import 'core-js/fn/array/every';
-import 'core-js/fn/array/some';
+import 'core-js/es/set';
+import 'core-js/es/map';
+import 'core-js/es/symbol';
+import 'core-js/features/object/assign';
+import 'core-js/features/object/entries';
+import 'core-js/features/object/values';
+import 'core-js/features/array/from';
+import 'core-js/features/array/every';
+import 'core-js/features/array/some';
 
 if (typeof Promise === 'undefined') {
   // Rejection tracking prevents a common issue where React gets into an

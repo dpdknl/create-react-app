@@ -15,11 +15,11 @@ const modules = require('../../config/modules');
 module.exports = (resolve, rootDir, isEjecting) => {
   // Use this instead of `paths.testsSetup` to avoid putting
   // an absolute filename into configuration after ejecting.
-  const setupTestsMatches = paths.testsSetup.match(/src[/\\]setupTests\.(.+)/);
+  const setupTestsMatches = paths.testsSetup.match(/test[/\\]setupTests\.(.+)/);
   const setupTestsFileExtension =
     (setupTestsMatches && setupTestsMatches[1]) || 'js';
   const setupTestsFile = fs.existsSync(paths.testsSetup)
-    ? `<rootDir>/frontend/setupTests.${setupTestsFileExtension}`
+    ? `<rootDir>/test/setupTests.${setupTestsFileExtension}`
     : undefined;
 
   const config = {
@@ -101,7 +101,7 @@ module.exports = (resolve, rootDir, isEjecting) => {
               chalk.bold('setupFilesAfterEnv') +
               ' in your package.json.\n\n' +
               'Remove it from Jest configuration, and put the initialization code in ' +
-              chalk.bold('src/setupTests.js') +
+              chalk.bold('test/setupTests.js') +
               '.\nThis file will be loaded automatically.\n'
           )
         );
